@@ -81,15 +81,16 @@ class ImcCalculatorActivity : AppCompatActivity() {
             setWeight()
         }
 
-        btnDecreaseWeight.setOnClickListener{
+        btnDecreaseAge.setOnClickListener{
             if (currentAge > 1){
                 currentAge--
                 setAge()
             }
         }
 
-        btnIncreaseWeight.setOnClickListener{
+        btnIncreaseAge.setOnClickListener{
             currentAge++
+            setAge()
         }
     }
 
