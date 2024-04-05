@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MifirstApp</string>
+    <string name="hello_world">Hello World 2</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="male">Hombre</string>
+    <string name="female">Mujer</string>
+    <string name="height">Altura</string>
+    <string name="weight">Peso</string>
+    <string name="age">Edad</string>
+</resources>
