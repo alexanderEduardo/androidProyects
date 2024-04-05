@@ -7,4 +7,17 @@
     <string name="height">Altura</string>
     <string name="weight">Peso</string>
     <string name="age">Edad</string>
+    <string name="calculate">Calcular</string>
+    <string name="resultIMC">Tu resultado</string>
+    <string name="recalculate">re-calcular</string>
+
+    <string name="title_low_weight">Bajo Peso</string>
+    <string name="desc_low_weight">Estas por debajo de lo optimo para tu peso y altura</string>
+    <string name="title_normal_weight">Peso Normal</string>
+    <string name="desc_normal_weight">Estas en lo optimo para tu peso y altura</string>
+    <string name="title_over_weight">Sobrepeso</string>
+    <string name="desc_over_weight">Estas por encima de lo optimo para tu peso y altura</string>
+    <string name="title_obesity">Obesidad</string>
+    <string name="desc_obesity">Estas muy por encima de lo optimo para tu peso y altura</string>
+
 </resources>

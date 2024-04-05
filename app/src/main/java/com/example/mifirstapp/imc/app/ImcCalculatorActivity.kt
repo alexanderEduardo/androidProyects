@@ -1,7 +1,10 @@
 package com.example.mifirstapp.imc.app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.compose.runtime.currentRecomposeScope
@@ -25,10 +28,16 @@ class ImcCalculatorActivity : AppCompatActivity() {
     private lateinit var tvAge:TextView
     private var currentWeight:Int = 60
     private var currentAge:Int = 21;
+    private var currentHeight:Float = 150f
+    private lateinit var btnCalculate: Button
     //private val viewMale: CardView by lazy { findViewById(R.id.viewMale) }
     //private val viewFemale: CardView by lazy { findViewById(R.id.viewFemale) }
-
     private var selectedGender: Gender = Gender.MALE
+
+    companion object{
+        const val IMC_KEY = "IMC_RESULT"
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +50,19 @@ class ImcCalculatorActivity : AppCompatActivity() {
     private fun initUI() {
         setWeight()
         setAge()
+        setInitHeight()
     }
 
+    private fun setInitHeight() {
+        setFormatHeightInTextView(currentHeight)
+        rsHeight.values = listOf(currentHeight)
+    }
+
+    private fun setFormatHeightInTextView(height: Float){
+        val df = DecimalFormat("#.##")
+        val heightFormat = df.format(height)
+        tvHeight.text = "$heightFormat cm"
+    }
     private fun setAge() {
         tvAge.text = currentAge.toString()
     }
@@ -58,15 +78,15 @@ class ImcCalculatorActivity : AppCompatActivity() {
         btnDecreaseAge = findViewById(R.id.btnDecreaseAge)
         btnIncreaseAge = findViewById(R.id.btnIncreaseAge)
         tvAge = findViewById(R.id.tvAge)
+        btnCalculate = findViewById(R.id.btnCalculate)
     }
 
     private fun initListeners() {
         viewMale.setOnClickListener {setGenderColor(Gender.MALE)}
         viewFemale.setOnClickListener {setGenderColor(Gender.FEMALE)}
-        rsHeight.addOnChangeListener { _, value, _ ->
-            val df = DecimalFormat("#.##")
-            val result = df.format(value)
-            tvHeight.text = "$result cm"
+        rsHeight.addOnChangeListener { rs, value, ww ->
+            setFormatHeightInTextView(value)
+            currentHeight = value
         }
 
         btnDecreaseWeight.setOnClickListener{
@@ -92,7 +112,23 @@ class ImcCalculatorActivity : AppCompatActivity() {
             currentAge++
             setAge()
         }
+
+        btnCalculate.setOnClickListener{
+            val imc = calculateIMC()
+            Log.i("imcLOG","El valor del imc es: $imc")
+            val imcFormateado: Float = String.format("%.2f", imc).toFloat()
+            println("El IMC es: $imcFormateado")
+            navigateToResultActivity(imcFormateado)
+        }
     }
+
+    private fun navigateToResultActivity(imcValue: Float){
+        val intent = Intent(this,ResultIMCActivity::class.java)
+        intent.putExtra(IMC_KEY,imcValue)
+        startActivity(intent)
+    }
+
+    private fun calculateIMC():Float = currentWeight / (currentHeight/100 * currentHeight/100)
 
     private fun setWeight() {
         tvWeight.text = currentWeight.toString()

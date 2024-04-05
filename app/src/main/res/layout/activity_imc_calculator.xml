@@ -101,7 +101,7 @@
                 android:textColor="@color/tittle_text"/>
             <TextView
                 android:id="@+id/tvHeight"
-                android:text="120 cm"
+                tools:text="120 cm"
                 android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -228,5 +228,13 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <Button
+        android:id="@+id/btnCalculate"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="@string/calculate"/>
     
 </androidx.constraintlayout.widget.ConstraintLayout>

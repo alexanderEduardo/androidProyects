@@ -14,4 +14,10 @@
     <color name="background_button">#EB1555</color>
     <color name="tittle_text">#FF8D8E98</color>
     <color name="bg_button_weight">#FF6200EE</color>
+
+    <color name="low_weight">#FFEB3B</color>
+    <color name="normal_weight">#4CAF50</color>
+    <color name="overweight">#F44336</color>
+    <color name="obesity">#FA0808</color>
+
 </resources>
