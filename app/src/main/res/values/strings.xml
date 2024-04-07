@@ -11,6 +11,7 @@
     <string name="resultIMC">Tu resultado</string>
     <string name="recalculate">re-calcular</string>
 
+    <!-- IMC App -->
     <string name="title_low_weight">Bajo Peso</string>
     <string name="desc_low_weight">Estas por debajo de lo optimo para tu peso y altura</string>
     <string name="title_normal_weight">Peso Normal</string>
@@ -19,5 +20,18 @@
     <string name="desc_over_weight">Estas por encima de lo optimo para tu peso y altura</string>
     <string name="title_obesity">Obesidad</string>
     <string name="desc_obesity">Estas muy por encima de lo optimo para tu peso y altura</string>
+    <string name="todoapp_welcome_user">Welcome User</string>
+    <string name="todo_categories">Categorias</string>
+    <string name="todo_task">tareas</string>
+    <!-- TodoApp -->
+    <color name="todo_background_card">#FF081A4A</color>
+    <color name="todo_background_disabled">#787878</color>
+    <color name="todo_background_todo_app">#FF2D4993</color>
+    <color name="todo_subtitle_text">#959595</color>
+    <color name="todo_accent">#E91E63</color>
+
+    <color name="todo_business_category">#FF9800</color>
+    <color name="todo_personal_category">#00BCD4</color>
+    <color name="todo_other_category">#4CAF50</color>
 
 </resources>
