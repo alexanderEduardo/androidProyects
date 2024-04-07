@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mifirstapp.R
 
-class CategoriesViewHolder(private val view:View): RecyclerView.ViewHolder(view) {
+class CategoriesViewHolder(view:View): RecyclerView.ViewHolder(view) {
 
     private val tvCategoryName: TextView = view.findViewById(R.id.categoryName)
     private val divider: View = view.findViewById(R.id.divider)

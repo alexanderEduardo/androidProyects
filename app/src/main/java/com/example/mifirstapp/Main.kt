@@ -7,6 +7,23 @@ class Main {
 
 }
 
+interface Sound {
+    fun makeSound()
+}
+
+class Dog : Sound {
+    override fun makeSound() {
+        println("Woof")
+    }
+}
+
+class Robot(private val sound: Sound) : Sound by sound {
+    // Aquí se delega la implementación de makeSound a la instancia de Sound
+    /*override fun makeSound(){
+        println("Bip Bip")
+    }*/
+}
+
 fun main(args: Array<String>) {
     println(args.contentToString())
     println(variables())
@@ -14,6 +31,8 @@ fun main(args: Array<String>) {
     val t1:Long = 222
     println(getType(t1))
     test()
+    val robot = Robot(Dog())
+    robot.makeSound()
 }
 
 fun variables():Int{
