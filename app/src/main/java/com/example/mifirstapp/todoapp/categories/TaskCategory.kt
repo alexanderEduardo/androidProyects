@@ -1,4 +1,4 @@
-package com.example.mifirstapp.todoapp
+package com.example.mifirstapp.todoapp.categories
 
 sealed class TaskCategory {
     object Personal: TaskCategory()

@@ -1,17 +1,17 @@
-package com.example.mifirstapp.todoapp
+package com.example.mifirstapp.todoapp.categories
 
 import android.view.View
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mifirstapp.R
+import com.example.mifirstapp.todoapp.ViewHolderGeneric
 
-class CategoriesViewHolder(view:View): RecyclerView.ViewHolder(view) {
+class CategoriesViewHolder(view:View): ViewHolderGeneric<TaskCategory>(view) {
 
     private val tvCategoryName: TextView = view.findViewById(R.id.categoryName)
     private val divider: View = view.findViewById(R.id.divider)
-    fun render(taskCategory: TaskCategory) {
-        when(taskCategory){
+    override fun render(dataRv: TaskCategory) {
+        when(dataRv){
             TaskCategory.Business -> {
                 tvCategoryName.text = "Negocios"
                 divider.setBackgroundColor(
