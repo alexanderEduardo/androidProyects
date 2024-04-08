@@ -25,6 +25,18 @@ class TodoActivity : AppCompatActivity() {
     private val tasks = mutableListOf<Task>(
         Task("Prueba Business",TaskCategory.Business),
         Task("Prueba Personal",TaskCategory.Personal),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
+        Task("Prueba Other",TaskCategory.Other),
         Task("Prueba Other",TaskCategory.Other)
     )
 
