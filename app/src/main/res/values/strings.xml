@@ -23,6 +23,11 @@
     <string name="todoapp_welcome_user">Welcome User</string>
     <string name="todo_categories">Categorias</string>
     <string name="todo_task">tareas</string>
+    <string name="todo_dialog_add_task">Añade una tarea</string>
+    <string name="todo_create_task">Crear Tarea</string>
+    <string name="todoapp_business">Negocios</string>
+    <string name="todoapp_personal">Personal</string>
+    <string name="todoapp_other">Otros</string>
     <!-- TodoApp -->
     <color name="todo_background_card">#FF081A4A</color>
     <color name="todo_background_disabled">#787878</color>
