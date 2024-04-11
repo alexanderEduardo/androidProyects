@@ -24,15 +24,35 @@ class Robot(private val sound: Sound) : Sound by sound {
     }*/
 }
 
+sealed class Errors( var isSelected: Boolean = true){
+    object Geneneric: Errors()
+    //data class genera equals, hashcode, toString
+    data class Internal(val msg: String): Errors()
+
+}
+
 fun main(args: Array<String>) {
-    println(args.contentToString())
-    println(variables())
-    println(whenCondicion("86".toInt()))
-    val t1:Long = 222
-    println(getType(t1))
-    test()
-    val robot = Robot(Dog())
-    robot.makeSound()
+    val genericError = Errors.Geneneric
+    genericError.isSelected= false
+    val genericError2 = Errors.Geneneric
+    println("genericError.isSelected ${genericError.isSelected}")
+    println("genericError2.isSelected ${genericError2.isSelected}")
+    println(genericError === genericError2)
+
+    val internal1 = Errors.Internal("error 500")
+    internal1.isSelected = false
+    println("internal1.hashCode() ${internal1.hashCode()}")
+    val internal2 = Errors.Internal("error 500")
+    println("internal2.hashCode() ${internal2.hashCode()}")
+    println("internal1.isSelected ${internal1.isSelected}")
+    println("internal2.isSelected ${internal2.isSelected}")
+    println(internal1 === internal2)
+    val listErr = mutableListOf(
+        genericError,internal1,internal2
+    )
+    println(listErr)
+    listErr.removeAt(1)
+    println(listErr)
 }
 
 fun variables():Int{

@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mifirstapp.R
@@ -15,7 +16,6 @@ import com.example.mifirstapp.todoapp.categories.TaskCategory
 import com.example.mifirstapp.todoapp.tasks.Task
 import com.example.mifirstapp.todoapp.tasks.TasksAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.text.FieldPosition
 
 class TodoActivity : AppCompatActivity() {
 
@@ -32,7 +32,12 @@ class TodoActivity : AppCompatActivity() {
     private val tasks = mutableListOf(
         Task("Prueba Business", TaskCategory.Business),
         Task("Prueba Personal", TaskCategory.Personal),
-        Task("Prueba Other", TaskCategory.Other)
+        Task("Prueba Other", TaskCategory.Other),
+        Task("Prueba Business 1", TaskCategory.Business),
+        Task("Prueba Personal 2", TaskCategory.Other),
+        Task("Prueba Business 2", TaskCategory.Business),
+        Task("Prueba Other 2", TaskCategory.Other),
+        Task("Prueba Other 3", TaskCategory.Other),
     )
 
     private lateinit var fabAddTask: FloatingActionButton
@@ -43,6 +48,24 @@ class TodoActivity : AppCompatActivity() {
         initComponents()
         initUI()
         initListeners()
+    }
+
+    private fun initComponents() {
+        rvCategories = findViewById(R.id.rvCategories)
+        rvTasks = findViewById(R.id.rvTasks)
+        fabAddTask = findViewById(R.id.btnAddTask)
+    }
+
+    private fun initUI() {
+        categoriesAdapter = CategoriesAdapter(categories, {i -> onCategorySelected(i)})
+        //scroll horizontal or vertical
+        rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvCategories.adapter = categoriesAdapter
+
+        tasksAdapter = TasksAdapter(tasks, { position -> onTaskSelected(position) })
+        //vertical
+        rvTasks.layoutManager = LinearLayoutManager(this)
+        rvTasks.adapter = tasksAdapter
     }
 
     private fun initListeners() {
@@ -69,39 +92,38 @@ class TodoActivity : AppCompatActivity() {
                 }
 
                 tasks.add(Task(etTask.text.toString(), taskSelected))
-                updateTask()
+                insertTask()
                 dialog.hide()
             }
         }
     }
 
-    private fun updateTask() {
+    private fun insertTask() {
         tasksAdapter.notifyItemInserted(tasksAdapter.getItemCount() + 1)
     }
 
-    private fun initUI() {
-        categoriesAdapter = CategoriesAdapter(categories)
-        //scroll horizontal or vertical
-        rvCategories.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvCategories.adapter = categoriesAdapter
-
-        tasksAdapter = TasksAdapter(tasks, { position -> onItemSelected(position) })
-        //vertical
-        rvTasks.layoutManager = LinearLayoutManager(this)
-        rvTasks.adapter = tasksAdapter
+    private fun updateTask(position: Int) {
+        tasksAdapter.notifyItemChanged(position)
     }
 
-    private fun onItemSelected(position: Int) {
+    private fun deleteTask(position: Int) {
+        tasksAdapter.notifyItemRemoved(position)
+    }
+
+    private fun onTaskSelected(position: Int) {
         tasks[position].isSelected = !tasks[position].isSelected
-        updateTask()
+        updateTask(position)
     }
 
-    private fun initComponents() {
-        rvCategories = findViewById(R.id.rvCategories)
-        rvTasks = findViewById(R.id.rvTasks)
-        fabAddTask = findViewById(R.id.btnAddTask)
+    private fun onCategorySelected(position: Int) {
+        val categorySelected = categories[position]
+        categorySelected.isSelected = !categorySelected.isSelected
+        categoriesAdapter.notifyItemChanged(position)
+        val categoriesSelected = categories.filter { !it.isSelected }
+        tasks.forEach { task ->
+            task.isVisible = !categoriesSelected.contains(task.category)
+            updateTask(tasks.indexOf(task))
+        }
     }
-
 
 }
