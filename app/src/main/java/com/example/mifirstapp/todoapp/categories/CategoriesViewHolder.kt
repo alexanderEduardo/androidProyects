@@ -8,20 +8,16 @@ import androidx.core.content.ContextCompat
 import com.example.mifirstapp.R
 import com.example.mifirstapp.todoapp.ViewHolderGeneric
 
-class CategoriesViewHolder(view:View, onCategorySelected: (Int)-> Unit): ViewHolderGeneric<TaskCategory>(view) {
+class CategoriesViewHolder(view:View): ViewHolderGeneric<TaskCategory>(view) {
 
     private val tvCategoryName: TextView = view.findViewById(R.id.categoryName)
     private val divider: View = view.findViewById(R.id.divider)
     private val currentCardView = itemView as CardView;
     init {
         Log.i("CategoriesViewHolder view reference", "itemView === view => ${itemView === view}")
-        itemView.setOnClickListener {
-            onCategorySelected(layoutPosition)
-        }
     }
-    override fun render(dataRv: TaskCategory) {
 
-
+    fun render2(dataRv: TaskCategory, onCategorySelected: (Int)-> Unit) {
         val color = if (dataRv.isSelected) {
             R.color.todo_background_card
         } else {
@@ -29,6 +25,8 @@ class CategoriesViewHolder(view:View, onCategorySelected: (Int)-> Unit): ViewHol
         }
 
         currentCardView.setCardBackgroundColor(ContextCompat.getColor(currentCardView.context, color))
+
+        itemView.setOnClickListener { onCategorySelected(layoutPosition) }
 
         when(dataRv){
             TaskCategory.Business -> {
@@ -50,5 +48,9 @@ class CategoriesViewHolder(view:View, onCategorySelected: (Int)-> Unit): ViewHol
                 )
             }
         }
+    }
+
+    override fun render(dataRv: TaskCategory) {
+        TODO("Not yet implemented")
     }
 }

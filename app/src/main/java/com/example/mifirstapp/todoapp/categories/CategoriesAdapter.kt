@@ -9,12 +9,11 @@ import com.example.mifirstapp.todoapp.ViewHolderGeneric
 class CategoriesAdapter(private val categories: List<TaskCategory>, private val onCategorySelected: (Int)-> Unit) : AdapterGeneric<TaskCategory>(categories) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderGeneric<TaskCategory> {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task_category, parent, false)
-        return CategoriesViewHolder(view,onCategorySelected)
+        return CategoriesViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolderGeneric<TaskCategory>, position: Int) {
-        //this method passed the data to the view
-        holder.render(categories[position])
+        (holder as CategoriesViewHolder).render2(categories[position],onCategorySelected)
     }
 
 }

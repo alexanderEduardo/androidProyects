@@ -27,34 +27,24 @@ class TasksViewHolder(private val view: View, onTaskSelected: (Int)-> Unit) : Vi
 
     override fun render(dataRv: Task) {
 
-        cbTask.isChecked = dataRv.isSelected
-        tvTask.text = dataRv.name
-
-        if (dataRv.isVisible) {
-            itemView.visibility = View.VISIBLE
-            val params = itemView.layoutParams
-            params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            itemView.layoutParams = params
-        } else {
-            itemView.visibility = View.GONE
-            val params = itemView.layoutParams
-            params.height = 0
-            itemView.layoutParams = params
-        }
-
         if (dataRv.isSelected) {
             tvTask.paintFlags = tvTask.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             tvTask.paintFlags = tvTask.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
         }
 
-        val checkBoxColor = when (dataRv.category) {
+        tvTask.text = dataRv.name
+        cbTask.isChecked = dataRv.isSelected
+
+        val color = when (dataRv.category) {
             TaskCategory.Business -> R.color.todo_business_category
             TaskCategory.Other -> R.color.todo_other_category
             TaskCategory.Personal -> R.color.todo_personal_category
         }
 
-        cbTask.buttonTintList = ColorStateList.valueOf(ContextCompat.getColor(view.context, checkBoxColor))
+        cbTask.buttonTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(cbTask.context, color)
+        )
 
     }
 
