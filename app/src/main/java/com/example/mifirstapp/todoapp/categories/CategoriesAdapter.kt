@@ -6,14 +6,20 @@ import com.example.mifirstapp.R
 import com.example.mifirstapp.todoapp.AdapterGeneric
 import com.example.mifirstapp.todoapp.ViewHolderGeneric
 
-class CategoriesAdapter(private val categories: List<TaskCategory>, private val onCategorySelected: (Int)-> Unit) : AdapterGeneric<TaskCategory>(categories) {
+class CategoriesAdapter(private var categories: List<TaskCategory>, private val onCategorySelected: (Int)-> Unit) : AdapterGeneric<TaskCategory>(categories) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderGeneric<TaskCategory> {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task_category, parent, false)
-        return CategoriesViewHolder(view)
+        return CategoriesViewHolder(view,onCategorySelected)
+    }
+
+    override fun getList(): List<TaskCategory> = categories
+
+    override fun setList(list: List<TaskCategory>) {
+        categories = list
     }
 
     override fun onBindViewHolder(holder: ViewHolderGeneric<TaskCategory>, position: Int) {
-        (holder as CategoriesViewHolder).render2(categories[position],onCategorySelected)
+        (holder as CategoriesViewHolder).render2(categories[position])
     }
 
 }

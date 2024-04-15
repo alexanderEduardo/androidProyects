@@ -40,6 +40,7 @@ class TodoActivity : AppCompatActivity() {
 
 
     private lateinit var fabAddTask: FloatingActionButton
+    private var isAllCategoriesSelected = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,17 +69,24 @@ class TodoActivity : AppCompatActivity() {
                 val currentCategory:TaskCategory = when(selectedRadioButton.text){
                     getString(R.string.todoapp_business) -> TaskCategory.Business
                     getString(R.string.todoapp_personal) -> TaskCategory.Personal
+                    getString(R.string.todoapp_other) -> TaskCategory.Other
                     else -> TaskCategory.Other
                 }
 
                 tasks.add(Task(currentTask, currentCategory))
-                updateTasks()
+                if (isAllCategoriesSelected){
+                    insertTask()
+                }else{
+                    updateTasks()
+                }
                 dialog.hide()
             }
         }
-
-
         dialog.show()
+    }
+
+    private fun insertTask() {
+        tasksAdapter.notifyItemInserted(tasks.size - 1)
     }
 
     private fun initComponents() {
@@ -92,14 +100,15 @@ class TodoActivity : AppCompatActivity() {
         rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCategories.adapter = categoriesAdapter
 
-        tasksAdapter = TasksAdapter(tasks) {position -> onItemSelected(position)}
+        tasksAdapter = TasksAdapter(tasks) {position -> onTaskItemSelected(position)}
         rvTasks.layoutManager = LinearLayoutManager(this)
         rvTasks.adapter = tasksAdapter
     }
 
-    private fun onItemSelected(position:Int){
-        tasks[position].isSelected = !tasks[position].isSelected
-        updateTasks()
+    private fun onTaskItemSelected(position:Int){
+        val tasksAdapterList = tasksAdapter.getList()
+        tasksAdapterList[position].isSelected = !tasksAdapterList[position].isSelected
+        tasksAdapter.notifyItemChanged(position)
     }
 
     private fun updateCategories(position: Int){
@@ -111,8 +120,10 @@ class TodoActivity : AppCompatActivity() {
     @SuppressLint("NotifyDataSetChanged")
     private fun updateTasks(){
         val selectedCategories: List<TaskCategory> = categories.filter { it.isSelected }
-        val newTasks = tasks.filter { selectedCategories.contains(it.category) }
-        tasksAdapter.tasks = newTasks
+        isAllCategoriesSelected = selectedCategories.size == categories.size
+
+        val filterTasks = tasks.filter { selectedCategories.contains(it.category) }
+        tasksAdapter.setList(filterTasks)
         tasksAdapter.notifyDataSetChanged()
     }
 

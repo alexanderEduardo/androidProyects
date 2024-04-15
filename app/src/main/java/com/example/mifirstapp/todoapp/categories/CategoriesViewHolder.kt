@@ -8,16 +8,18 @@ import androidx.core.content.ContextCompat
 import com.example.mifirstapp.R
 import com.example.mifirstapp.todoapp.ViewHolderGeneric
 
-class CategoriesViewHolder(view:View): ViewHolderGeneric<TaskCategory>(view) {
+class CategoriesViewHolder(private val view:View, onCategorySelected: (Int)-> Unit): ViewHolderGeneric<TaskCategory>(view) {
 
     private val tvCategoryName: TextView = view.findViewById(R.id.categoryName)
     private val divider: View = view.findViewById(R.id.divider)
     private val currentCardView = itemView as CardView;
     init {
         Log.i("CategoriesViewHolder view reference", "itemView === view => ${itemView === view}")
+        itemView.setOnClickListener { onCategorySelected(layoutPosition) }
     }
 
-    fun render2(dataRv: TaskCategory, onCategorySelected: (Int)-> Unit) {
+    fun render2(dataRv: TaskCategory) {
+
         val color = if (dataRv.isSelected) {
             R.color.todo_background_card
         } else {
@@ -26,23 +28,21 @@ class CategoriesViewHolder(view:View): ViewHolderGeneric<TaskCategory>(view) {
 
         currentCardView.setCardBackgroundColor(ContextCompat.getColor(currentCardView.context, color))
 
-        itemView.setOnClickListener { onCategorySelected(layoutPosition) }
-
         when(dataRv){
             TaskCategory.Business -> {
-                tvCategoryName.text = "Negocios"
+                tvCategoryName.text = view.context.getString(R.string.todoapp_business)
                 divider.setBackgroundColor(
                     ContextCompat.getColor(divider.context,R.color.todo_business_category)
                 )
             }
             TaskCategory.Other -> {
-                tvCategoryName.text = "Otros"
+                tvCategoryName.text = currentCardView.context.getString(R.string.todoapp_other)
                 divider.setBackgroundColor(
                     ContextCompat.getColor(divider.context,R.color.todo_other_category)
                 )
             }
             TaskCategory.Personal -> {
-                tvCategoryName.text = "Personal"
+                tvCategoryName.text = itemView.context.getString(R.string.todoapp_personal)
                 divider.setBackgroundColor(
                     ContextCompat.getColor(divider.context,R.color.todo_personal_category)
                 )

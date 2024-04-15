@@ -9,4 +9,8 @@ abstract class AdapterGeneric<T>(private val categories: List<T>): RecyclerView.
     abstract override fun onBindViewHolder(holder: ViewHolderGeneric<T>, position: Int)
 
     override fun getItemCount(): Int = categories.size
+
+    abstract fun setList(list: List<T>)
+
+    abstract fun getList(): List<T>
 }
