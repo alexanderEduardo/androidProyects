@@ -1,15 +1,13 @@
 package com.example.mifirstapp.todoapp.tasks
 
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.Paint
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.mifirstapp.R
-import com.example.mifirstapp.todoapp.ViewHolderGeneric
+import com.example.mifirstapp.utils.ViewHolderGeneric
 import com.example.mifirstapp.todoapp.categories.TaskCategory
 
 class TasksViewHolder(private val view: View, onTaskSelected: (Int)-> Unit) : ViewHolderGeneric<Task>(view) {

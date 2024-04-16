@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.mifirstapp.R
-import com.example.mifirstapp.todoapp.ViewHolderGeneric
+import com.example.mifirstapp.utils.ViewHolderGeneric
 
 class CategoriesViewHolder(private val view:View, onCategorySelected: (Int)-> Unit): ViewHolderGeneric<TaskCategory>(view) {
 
@@ -18,7 +18,7 @@ class CategoriesViewHolder(private val view:View, onCategorySelected: (Int)-> Un
         itemView.setOnClickListener { onCategorySelected(layoutPosition) }
     }
 
-    fun render2(dataRv: TaskCategory) {
+    override fun render(dataRv: TaskCategory) {
 
         val color = if (dataRv.isSelected) {
             R.color.todo_background_card
@@ -48,9 +48,5 @@ class CategoriesViewHolder(private val view:View, onCategorySelected: (Int)-> Un
                 )
             }
         }
-    }
-
-    override fun render(dataRv: TaskCategory) {
-        TODO("Not yet implemented")
     }
 }

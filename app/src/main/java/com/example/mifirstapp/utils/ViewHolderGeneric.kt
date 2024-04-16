@@ -1,4 +1,4 @@
-package com.example.mifirstapp.todoapp
+package com.example.mifirstapp.utils
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
