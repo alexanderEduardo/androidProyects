@@ -7,10 +7,10 @@ import com.example.mifirstapp.R
 import com.example.mifirstapp.utils.AdapterGeneric
 import com.example.mifirstapp.utils.ViewHolderGeneric
 
-class SuperHeroAdapter(private var heroes: List<SuperHero> = emptyList()) : AdapterGeneric<SuperHero>(heroes){
+class SuperHeroAdapter(private var heroes: List<SuperHero> = emptyList(), private val onItemSelected: (String)-> Unit) : AdapterGeneric<SuperHero>(heroes){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderGeneric<SuperHero> {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_superheroe, parent, false)
-        return SuperHeroViewHolder(view)
+        return SuperHeroViewHolder(view,onItemSelected)
     }
 
     override fun onBindViewHolder(holder: ViewHolderGeneric<SuperHero>, position: Int) {

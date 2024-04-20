@@ -1,17 +1,19 @@
 package com.example.mifirstapp.superhero.app
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mifirstapp.databinding.ActivitySuperHeroListBinding
+import com.example.mifirstapp.superhero.app.DetailsSuperHeroActivity.Companion.SUPER_HERO_ID
 import com.example.mifirstapp.superhero.app.services.ApiService
+import com.example.mifirstapp.utils.RetrofitInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class SuperHeroListActivity : AppCompatActivity() {
 
@@ -23,7 +25,7 @@ class SuperHeroListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySuperHeroListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        retrofit = getRetrofitInstance()
+        retrofit = RetrofitInstance.getInstance()
         initUi()
     }
 
@@ -40,7 +42,7 @@ class SuperHeroListActivity : AppCompatActivity() {
             }
         })
 
-        adapter = SuperHeroAdapter()
+        adapter = SuperHeroAdapter(){navigateToDetail(it)}
         binding.recyclerViewSuperHeroList.setHasFixedSize(true)
         binding.recyclerViewSuperHeroList.layoutManager = LinearLayoutManager(this)
         binding.recyclerViewSuperHeroList.adapter = adapter
@@ -72,11 +74,10 @@ class SuperHeroListActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRetrofitInstance(): Retrofit {
-         return Retrofit.Builder()
-            .baseUrl("https://superheroapi.com/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    private fun navigateToDetail(id: String) {
+        val intent = Intent(this,DetailsSuperHeroActivity::class.java)
+        intent.putExtra(SUPER_HERO_ID, id)
+        startActivity(intent)
     }
 
 
